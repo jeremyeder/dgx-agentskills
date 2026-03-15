@@ -44,9 +44,7 @@ server.tool(
   "System overview: uptime, CPU load, memory usage, disk space",
   sparkGetStatusSchema.shape,
   async () => ({
-    content: [
-      { type: "text", text: JSON.stringify(await sparkGetStatus(), null, 2) },
-    ],
+    content: [{ type: "text", text: JSON.stringify(await sparkGetStatus(), null, 2) }],
   })
 );
 
@@ -87,11 +85,7 @@ server.tool(
     content: [
       {
         type: "text",
-        text: JSON.stringify(
-          await sparkPullModel(input as { model: string }),
-          null,
-          2
-        ),
+        text: JSON.stringify(await sparkPullModel(input as { model: string }), null, 2),
       },
     ],
   })
@@ -129,11 +123,7 @@ server.tool(
     content: [
       {
         type: "text",
-        text: JSON.stringify(
-          await sparkStopModel(input as { containerName: string }),
-          null,
-          2
-        ),
+        text: JSON.stringify(await sparkStopModel(input as { containerName: string }), null, 2),
       },
     ],
   })
@@ -148,11 +138,7 @@ server.tool(
     content: [
       {
         type: "text",
-        text: JSON.stringify(
-          await sparkListContainers(input as { all?: boolean }),
-          null,
-          2
-        ),
+        text: JSON.stringify(await sparkListContainers(input as { all?: boolean }), null, 2),
       },
     ],
   })
@@ -167,9 +153,7 @@ server.tool(
       {
         type: "text",
         text: JSON.stringify(
-          await sparkContainerLogs(
-            input as { containerName: string; lines?: number }
-          ),
+          await sparkContainerLogs(input as { containerName: string; lines?: number }),
           null,
           2
         ),

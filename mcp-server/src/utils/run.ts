@@ -39,9 +39,7 @@ export async function run(
     };
 
     if (err.killed || err.code === "ERR_CHILD_PROCESS_STDIO_MAXBUFFER") {
-      throw new Error(
-        `Command timed out after ${timeout}ms: ${command} ${args.join(" ")}`
-      );
+      throw new Error(`Command timed out after ${timeout}ms: ${command} ${args.join(" ")}`);
     }
 
     return {

@@ -20,10 +20,7 @@ export async function sparkVpnStatus() {
     const status = JSON.parse(result.stdout) as {
       BackendState: string;
       Self: { TailscaleIPs: string[]; HostName: string };
-      Peer: Record<
-        string,
-        { HostName: string; TailscaleIPs: string[]; Online: boolean }
-      >;
+      Peer: Record<string, { HostName: string; TailscaleIPs: string[]; Online: boolean }>;
     };
 
     const peers = Object.values(status.Peer ?? {}).map((p) => ({

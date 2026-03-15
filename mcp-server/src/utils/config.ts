@@ -20,8 +20,6 @@ export function loadConfig(): SparkConfig {
     ollamaHost: process.env.OLLAMA_HOST ?? "localhost:11434",
     vllmImage: process.env.VLLM_IMAGE ?? "nvcr.io/nvidia/vllm:latest",
     vllmPort: parseInt(process.env.VLLM_PORT ?? "8000", 10),
-    vllmGpuMemoryUtilization: parseFloat(
-      process.env.VLLM_GPU_MEMORY_UTILIZATION ?? "0.7"
-    ),
+    vllmGpuMemoryUtilization: parseFloat(process.env.VLLM_GPU_MEMORY_UTILIZATION ?? "0.7"),
   };
 }

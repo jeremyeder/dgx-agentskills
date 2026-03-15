@@ -10,8 +10,8 @@
     "start": "node dist/index.js",
     "test": "vitest run",
     "test:watch": "vitest",
-    "lint": "eslint src/ --ext .ts && prettier --check src/",
-    "lint:fix": "eslint src/ --ext .ts --fix && prettier --write src/",
+    "lint": "eslint src/ && prettier --check src/",
+    "lint:fix": "eslint src/ --fix && prettier --write src/",
     "clean": "rm -rf dist"
   },
   "dependencies": {

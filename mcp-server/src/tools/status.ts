@@ -67,9 +67,7 @@ export async function sparkGpuUtilization() {
       totalMB: parseInt(parts[1], 10),
       usedMB: parseInt(parts[2], 10),
       freeMB: parseInt(parts[3], 10),
-      percentUsed: Math.round(
-        (parseInt(parts[2], 10) / parseInt(parts[1], 10)) * 100
-      ),
+      percentUsed: Math.round((parseInt(parts[2], 10) / parseInt(parts[1], 10)) * 100),
     },
     utilization: {
       gpuPercent: parseInt(parts[4], 10),

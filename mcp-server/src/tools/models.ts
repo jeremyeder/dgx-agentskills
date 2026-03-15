@@ -18,16 +18,13 @@ export async function sparkListModels() {
   const config = loadConfig();
 
   const [ollamaResult, dockerResult] = await Promise.allSettled([
-    runJson<OllamaListResponse>("curl", [
-      "-s",
-      `http://${config.ollamaHost}/api/tags`,
-    ]),
+    runJson<OllamaListResponse>("curl", ["-s", `http://${config.ollamaHost}/api/tags`]),
     run("docker", [
       "ps",
       "--filter",
       "ancestor=" + config.vllmImage,
       "--format",
-      '{{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}',
+      "{{.ID}}\t{{.Names}}\t{{.Status}}\t{{.Ports}}",
     ]),
   ]);
 
@@ -93,17 +90,9 @@ export async function sparkPullModel(input: { model: string }) {
 }
 
 export const sparkStartModelSchema = z.object({
-  model: z
-    .string()
-    .describe("Model name or HuggingFace path to serve via vLLM"),
-  port: z
-    .number()
-    .optional()
-    .describe("Port to serve on (default: from config)"),
-  extraArgs: z
-    .array(z.string())
-    .optional()
-    .describe("Additional vLLM arguments"),
+  model: z.string().describe("Model name or HuggingFace path to serve via vLLM"),
+  port: z.number().optional().describe("Port to serve on (default: from config)"),
+  extraArgs: z.array(z.string()).optional().describe("Additional vLLM arguments"),
 });
 
 export async function sparkStartModel(input: {
@@ -138,9 +127,7 @@ export async function sparkStartModel(input: {
   const result = await run("docker", args, { timeout: 60_000 });
 
   if (result.exitCode !== 0) {
-    throw new Error(
-      `Failed to start model ${input.model}: ${result.stderr}`
-    );
+    throw new Error(`Failed to start model ${input.model}: ${result.stderr}`);
   }
 
   return {
@@ -154,9 +141,7 @@ export async function sparkStartModel(input: {
 }
 
 export const sparkStopModelSchema = z.object({
-  containerName: z
-    .string()
-    .describe("Container name or ID to stop"),
+  containerName: z.string().describe("Container name or ID to stop"),
 });
 
 export async function sparkStopModel(input: { containerName: string }) {
@@ -164,9 +149,7 @@ export async function sparkStopModel(input: { containerName: string }) {
     timeout: 30_000,
   });
   if (stopResult.exitCode !== 0) {
-    throw new Error(
-      `Failed to stop ${input.containerName}: ${stopResult.stderr}`
-    );
+    throw new Error(`Failed to stop ${input.containerName}: ${stopResult.stderr}`);
   }
 
   await run("docker", ["rm", input.containerName]);
