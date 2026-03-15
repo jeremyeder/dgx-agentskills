@@ -29,7 +29,17 @@ This rsyncs the project to your Spark, builds the MCP server Docker container, a
 ### 3. Install Plugin
 
 ```bash
-claude plugin add jeremyeder/dgx-agentskills
+# Add the marketplace (one-time)
+claude plugin marketplace add jeremyeder/dgx-agentskills
+
+# Install the plugin
+claude plugin install dgx-spark@dgx-agentskills --scope user
+```
+
+Or from within a Claude Code session:
+```
+/plugin marketplace add jeremyeder/dgx-agentskills
+/plugin install dgx-spark@dgx-agentskills
 ```
 
 ### 4. Verify

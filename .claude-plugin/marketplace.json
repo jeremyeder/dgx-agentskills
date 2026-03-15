@@ -1,0 +1,15 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "dgx-agentskills",
+  "description": "NVIDIA DGX Spark integration for Claude Code",
+  "owner": {
+    "name": "Jeremy Eder"
+  },
+  "plugins": [
+    {
+      "name": "dgx-spark",
+      "description": "NVIDIA DGX Spark integration for Claude Code — local model serving, GPU monitoring, VM management, and hybrid AI workflows",
+      "source": "./"
+    }
+  ]
+}
