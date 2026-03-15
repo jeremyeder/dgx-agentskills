@@ -92,13 +92,7 @@ Not all models work in the Claude Code harness. Requirements:
 - **Sufficient context window** — 32K+ recommended for coding tasks
 - **Instruction following** — must reliably follow structured output formats
 
-### Tested Compatible Models (March 2026)
-
-| Model | Tool Calling | Quality | Notes |
-|-------|-------------|---------|-------|
-| Qwen3-Coder-Next | Excellent | High | Purpose-built for agentic coding |
-| Qwen3.5 | Good | High | Strong general capability |
-| GLM-4.7-Flash | Good | Medium | Fast but less precise |
+See the full model compatibility matrix in the `spark-models` skill, which includes token/s benchmarks and quantization details.
 
 Models with `/` in HuggingFace names may need aliasing — Claude Code has issues with slashes in model names.
 
