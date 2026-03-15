@@ -1,0 +1,13 @@
+{
+  "name": "dgx-spark",
+  "description": "NVIDIA DGX Spark integration for Claude Code — local model serving, GPU monitoring, VM management, and hybrid AI workflows",
+  "version": "0.1.0",
+  "author": {
+    "name": "Jeremy Eder",
+    "email": "jeder@redhat.com"
+  },
+  "homepage": "https://github.com/jeremyeder/dgx-agentskills",
+  "repository": "https://github.com/jeremyeder/dgx-agentskills",
+  "license": "MIT",
+  "keywords": ["nvidia", "dgx-spark", "local-llm", "vllm", "ollama", "gpu", "mcp"]
+}
