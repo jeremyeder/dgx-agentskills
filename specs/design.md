@@ -51,6 +51,7 @@ A Claude Code plugin that integrates the NVIDIA DGX Spark into Jeremy's developm
 ```
 dgx-agentskills/
 ├── .claude-plugin/
+│   ├── marketplace.json
 │   └── plugin.json
 ├── .claude/
 │   └── CLAUDE.md
@@ -97,6 +98,8 @@ dgx-agentskills/
 ├── .env.example                    # Mac-side config template
 ├── .eslintrc.json
 ├── .prettierrc
+├── specs/
+│   └── design.md
 ├── README.md
 └── LICENSE
 ```
