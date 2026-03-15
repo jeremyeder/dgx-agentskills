@@ -1,0 +1,18 @@
+services:
+  dgx-mcp:
+    build:
+      context: ./mcp-server
+      dockerfile: Dockerfile
+    container_name: dgx-mcp-server
+    restart: unless-stopped
+    network_mode: host
+    runtime: nvidia
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    env_file:
+      - .env
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3100/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3

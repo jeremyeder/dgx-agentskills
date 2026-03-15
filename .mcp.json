@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "dgx-spark": {
+      "type": "http",
+      "url": "http://your-spark.local:3100/mcp"
+    }
+  }
+}
