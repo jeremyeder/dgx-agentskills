@@ -26,7 +26,26 @@ cp .env.example .env
 
 This rsyncs the project to your Spark, builds the MCP server Docker container, and starts it.
 
-### 3. Install Plugin
+### 3. Connect to MCP Server
+
+Update `.mcp.json` with your Spark's hostname:
+
+```json
+{
+  "mcpServers": {
+    "dgx-spark": {
+      "type": "http",
+      "url": "http://YOUR-SPARK-HOSTNAME.local:3100/mcp"
+    }
+  }
+}
+```
+
+Replace `YOUR-SPARK-HOSTNAME` with your Spark's actual hostname (e.g., `jeder-spark`). If using Tailscale for remote access, use the Tailscale hostname instead (e.g., `http://jeder-spark:3100/mcp`).
+
+Claude Code reads this file to discover the MCP server. Without it, skills like `/spark-status` and all `spark_*` MCP tools will be unavailable.
+
+### 4. Install Plugin
 
 ```bash
 # Add the marketplace (one-time)
@@ -42,25 +61,25 @@ Or from within a Claude Code session:
 /plugin install dgx-spark@dgx-agentskills
 ```
 
-### 4. Verify
+### 5. Verify
 
 ```
 /spark-status
 ```
 
-### 5. Pull a Model
+### 6. Pull a Model
 
 ```
 /spark-models pull qwen3.5:32b
 ```
 
-### 6. Serve via vLLM (for Claude Code integration)
+### 7. Serve via vLLM (for Claude Code integration)
 
 ```
 /spark-models serve Qwen/Qwen3-Coder-Next --vllm
 ```
 
-### 7. Switch Claude Code to Local Backend
+### 8. Switch Claude Code to Local Backend
 
 ```
 /spark-switch local
