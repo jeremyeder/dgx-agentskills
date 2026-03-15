@@ -31,3 +31,4 @@ NVIDIA DGX Spark plugin for Claude Code.
 - Command names: `/spark-*`
 - All shell scripts must pass shellcheck
 - All TypeScript must pass eslint + prettier
+- Always use the latest stable versions of dependencies, actions, base images, and tooling. Check before pinning.
