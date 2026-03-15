@@ -7,8 +7,11 @@ services:
     restart: unless-stopped
     network_mode: host
     runtime: nvidia
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/bin/nvidia-smi:/usr/bin/nvidia-smi:ro
     env_file:
       - .env
     healthcheck:
