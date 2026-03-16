@@ -137,3 +137,11 @@ dist
 # Vite logs files
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
+
+# LibreChat secrets and runtime data
+deploy/librechat/vertex-sa.json
+deploy/librechat/data-node/
+deploy/librechat/meili_data/
+deploy/librechat/images/
+deploy/librechat/uploads/
+deploy/librechat/logs/

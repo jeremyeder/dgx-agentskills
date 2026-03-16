@@ -1,0 +1,113 @@
+services:
+  api:
+    image: registry.librechat.ai/danny-avila/librechat-dev:latest
+    container_name: librechat
+    ports:
+      - "127.0.0.1:3080:3080"
+    depends_on:
+      - mongodb
+      - meilisearch
+      - vectordb
+      - rag_api
+      - redis
+    env_file:
+      - .env
+    volumes:
+      - ./librechat.yaml:/app/librechat.yaml:ro
+      - ./vertex-sa.json:/app/vertex-sa.json:ro
+      - ./vertex-sa.json:/app/api/data/auth.json:ro
+      - ./images:/app/client/public/images
+      - ./uploads:/app/uploads
+      - ./logs:/app/api/logs
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped
+    networks:
+      - librechat-net
+
+  mongodb:
+    image: mongo:8.0
+    container_name: librechat-mongodb
+    volumes:
+      - ./data-node:/data/db
+    restart: unless-stopped
+    networks:
+      - librechat-net
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.12
+    container_name: librechat-meilisearch
+    environment:
+      - MEILI_NO_ANALYTICS=true
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
+    volumes:
+      - ./meili_data:/meili_data
+    restart: unless-stopped
+    networks:
+      - librechat-net
+
+  vectordb:
+    image: pgvector/pgvector:0.8.0-pg17
+    container_name: librechat-vectordb
+    environment:
+      - POSTGRES_DB=mydatabase
+      - POSTGRES_USER=myuser
+      - POSTGRES_PASSWORD=mypassword
+    volumes:
+      - pgvector_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - librechat-net
+
+  rag_api:
+    image: registry.librechat.ai/danny-avila/librechat-rag-api-dev-lite:latest
+    container_name: librechat-rag-api
+    depends_on:
+      - vectordb
+    environment:
+      - DB_HOST=vectordb
+      - DB_PORT=5432
+      - DB_USER=myuser
+      - DB_PASSWORD=mypassword
+      - DB_NAME=mydatabase
+      - RAG_PORT=8100
+      - COLLECTION_NAME=librechat
+      - EMBEDDINGS_PROVIDER=openai
+      - EMBEDDINGS_MODEL=text-embedding-3-small
+      - OPENAI_API_KEY=user_provided
+    restart: unless-stopped
+    networks:
+      - librechat-net
+
+  redis:
+    image: redis:7-alpine
+    container_name: librechat-redis
+    restart: unless-stopped
+    networks:
+      - librechat-net
+
+  ollama:
+    image: ollama/ollama:latest
+    container_name: librechat-ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+    networks:
+      - librechat-net
+
+volumes:
+  pgvector_data:
+  ollama_data:
+
+networks:
+  librechat-net:
+    driver: bridge

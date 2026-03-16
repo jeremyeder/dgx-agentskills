@@ -1,0 +1,73 @@
+version: 1.2.1
+cache: true
+
+interface:
+  endpointsMenu: true
+
+endpoints:
+  anthropic:
+    apiKey: "user_provided"
+    titleConvo: true
+    titleModel: "claude-haiku-4-5"
+    vertex:
+      region: "us-east5"
+      serviceKeyFile: "/app/vertex-sa.json"
+      projectId: "ambient-code-platform"
+      models:
+        claude-opus-4-6:
+          deploymentName: "claude-opus-4-6@default"
+        claude-sonnet-4-6:
+          deploymentName: "claude-sonnet-4-6@default"
+        claude-haiku-4-5:
+          deploymentName: "claude-haiku-4-5@20251001"
+
+  openAI:
+    apiKey: "user_provided"
+    titleConvo: true
+    titleModel: "gpt-4o-mini"
+
+  google:
+    vertex:
+      region: "us-central1"
+      serviceKeyFile: "/app/vertex-sa.json"
+      projectId: "ambient-code-platform"
+      models:
+        gemini-2.5-pro:
+          deploymentName: gemini-2.5-pro
+        gemini-2.5-flash:
+          deploymentName: gemini-2.5-flash
+        gemini-2.5-flash-lite:
+          deploymentName: gemini-2.5-flash-lite
+    titleConvo: true
+    titleModel: "gemini-2.5-flash"
+
+  custom:
+    - name: "Ollama"
+      apiKey: "ollama"
+      baseURL: "http://ollama:11434/v1/"
+      models:
+        default:
+          - "qwen3:8b"
+        fetch: true
+      titleConvo: true
+      titleModel: "current_model"
+      summarize: false
+      forcePrompt: false
+      modelDisplayLabel: "Ollama"
+      addParams:
+        stream: true
+
+    - name: "vLLM"
+      apiKey: "none"
+      baseURL: "http://host.docker.internal:8000/v1/"
+      models:
+        default:
+          - "placeholder"
+        fetch: true
+      titleConvo: true
+      titleModel: "current_model"
+      summarize: false
+      forcePrompt: false
+      modelDisplayLabel: "vLLM"
+      addParams:
+        stream: true
